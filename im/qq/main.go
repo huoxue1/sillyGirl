@@ -2,6 +2,7 @@ package qq
 
 import (
 	"crypto/md5"
+	"fmt"
 	"os"
 	"path"
 	"sync"
@@ -215,6 +216,12 @@ func init() {
 	bot.Client.OnSelfPrivateMessage(onPrivateMessage)
 	bot.Client.OnGroupMessage(OnGroupMessage)
 	bot.Client.OnSelfGroupMessage(OnGroupMessage)
+
+	bot.Client.OnNewFriendRequest(func(qqClient *client.QQClient, request *client.NewFriendRequest) {
+		request.Accept()
+		log.Infoln(fmt.Sprintf("已同意%v的好友申请，验证信息为：%v", request.RequesterUin, request.Message))
+	})
+
 	core.Pushs["qq"] = func(i int, s string) {
 		bot.SendPrivateMessage(int64(i), int64(qq.GetInt("groupCode")), &message.SendingMessage{Elements: []message.IMessageElement{&message.TextElement{Content: s}}})
 	}

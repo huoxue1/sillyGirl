@@ -90,6 +90,7 @@ func (sender *Sender) GetRawMessage() interface{} {
 func (sender *Sender) SetMatch(ss []string) {
 	sender.matches = [][]string{ss}
 }
+
 func (sender *Sender) SetAllMatch(ss [][]string) {
 	sender.matches = ss
 }
